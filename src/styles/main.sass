@@ -1,0 +1,66 @@
+@import "styles/vars"
+
+html, body
+	position: relative
+	height: 100%
+
+body
+	margin: 0
+	padding: 0
+	font-family: $fontMain
+	font-size: 16px
+	overflow-y: scroll
+	color: $colorDark
+	&.usnone
+		user-select: none
+	&.dragged
+		user-select: none
+		cursor: grabbing
+	*
+		color: inherit
+		font-size: inherit
+		font-family: inherit
+		margin: 0
+		padding: 0
+		appearance: none
+		background: transparent
+		border-radius: 0
+		box-sizing: border-box
+		border: none
+		outline: none
+		text-decoration: none
+		&:invalid
+			box-shadow: none
+		&:before, &:after
+			box-sizing: border-box
+
+#canvas-wrapper
+	height: 100vh
+	display: flex
+	align-items: center
+	justify-content: center
+
+canvas
+	display: block
+	background: black
+
+img
+	object-fit: cover
+	object-position: center
+
+h1, h2, h3, h4, h5, h6
+	font-family: $fontHead
+	font-weight: 600
+
+h1
+	font-size: 40px
+h2
+	font-size: 36px
+h3
+	font-size: 30px
+h4
+	font-size: 24px
+h5
+	font-size: 20px
+h6
+	font-size: 18px

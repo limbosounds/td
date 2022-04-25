@@ -1,0 +1,92 @@
+$fontMain: "Open Sans", sans-serif
+$fontHead: "Open Sans", sans-serif
+
+$transition: cubic-bezier(.23,1,.32,1)
+$tjelly: cubic-bezier(.55,.17,.39,1.21)
+
+$transitionTime: 250ms
+
+$colorMain: #2E8ADF
+$colorAccent: #0089fa
+$colorGrey: #B7C3CE
+$colorDark: #0b2444
+$colorBackground: #F7F8F9
+$colorGold: #FFC42B
+$colorLike: #d6213f
+
+$colorPositive: #19C98A
+$colorWarning: gold
+$colorNegative: red
+
+$mDesktopS: 1300px
+$mTabletA: 1100px
+$mTabletB: 800px
+$mMobileL: 600px
+$mMobileS: 320px
+
+=singleRunAnimation($name, $duration: $transitionTime)
+	animation-name: $name
+	animation-duration: $duration
+	animation-timing-function: $transition
+	animation-fill-mode: both
+	animation-iteration-count: 1
+
+=toe
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+
+=pos($position, $top: auto, $left: auto, $right: auto, $bottom: auto)
+	position: $position
+	top: $top
+	left: $left
+	right: $right
+	bottom: $bottom
+
+=placeholder
+	&::-webkit-input-placeholder
+		@content
+	&::-webkit-placeholder
+		@content
+	&::-ms-input-placeholder
+		@content
+	&::-moz-placeholder
+		@content
+	&::placeholder
+		@content
+
+=scrollbar($color: $colorAccent, $at: .38, $bt: .72)
+	&::-webkit-scrollbar
+		width: 8px
+		height: 8px
+	&::-webkit-scrollbar-track
+		background: rgba($color, $at)
+	&::-webkit-scrollbar-thumb
+		background: rgba($color, $bt)
+		&:hover
+			background: rgba($color, 1)
+
+=transition($transitionProperties...)
+	@if length($transitionProperties) == 0
+		transition-property: all
+	@else
+		transition-property: $transitionProperties
+
+	transition-duration: $transitionTime
+	transition-timing-function: $transition	
+
+=max($size)
+	@media (max-width: $size)
+		@content
+
+=childSpaceBottom($margin)
+	> *
+		margin-bottom: $margin
+		&:last-child
+			margin-bottom: 0
+
+=childSpaceRight($margin)
+	> *
+		margin-right: $margin
+		&:last-child
+			margin-right: 0
