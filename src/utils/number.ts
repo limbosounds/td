@@ -1,5 +1,8 @@
 export const unsafeRandomInt = (
-	maxInclusive: number
+	maxInclusive: number,
+	minInclusive: number = 0,
 ): number => {
-	return Math.round(Math.random() * maxInclusive)
+	const range = maxInclusive - minInclusive
+	const absoluteValue = Math.round(Math.random() * range)
+	return absoluteValue + minInclusive
 }

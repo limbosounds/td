@@ -4,8 +4,12 @@ import { v4 as uuid } from "uuid"
 import { IDrawable } from "typings/canvas/Draw"
 
 import Window from "./Window"
+import { Coords2D } from "typings/canvas/Geometry"
 
 class DrawerStore {
+	private canvas
+		: HTMLCanvasElement
+
 	private context
 		: CanvasRenderingContext2D
 	
@@ -45,6 +49,8 @@ class DrawerStore {
 	init = (
 		canvas: HTMLCanvasElement
 	) => {
+		this.canvas = canvas
+
 		const context = canvas.getContext("2d")
 		if (!context) {
 			// TODO logger
@@ -66,6 +72,17 @@ class DrawerStore {
 		const id = uuid()
 		this.elements.push({ id, item })
 		return id
+	}
+
+	getCursorCoords = (
+		clientX: number,
+		clientY: number,	
+	): Coords2D => {
+		const box = this.canvas.getBoundingClientRect()
+		return {
+			x: clientX - box.left,
+			y: clientY - box.top,
+		}
 	}
 }
 

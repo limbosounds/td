@@ -23,9 +23,9 @@ implements IDrawable {
 		context: CanvasRenderingContext2D,
 	) => {
 		const { chunkSize } = Drawer
-		const { w, h } = Window.aspectRatio
+		const { h } = Window.aspectRatio
 		const { r, g, b } = Chunk.COLOR
-		context.fillStyle = `rgba(${r}, ${g}, ${b * this.iY / h}, ${this.iX / w})`
+		context.fillStyle = `rgba(${r}, ${g}, ${b * this.iY / h}, ${(this.iX + this.iY) % 2 ? .24 : .38})`
 		context.fillRect(chunkSize * this.iX, chunkSize * this.iY, chunkSize, chunkSize)
 	}
 }

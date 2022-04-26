@@ -8,6 +8,7 @@ import Window from "stores/Window"
 import Drawer from "stores/Drawer"
 import Chunk from "components/Canvas/Helpers/Chunk"
 import { unsafeRandomInt } from "utils/number"
+import SparkParticle from "components/Canvas/Particles/Spark"
 
 export interface AppProps
 extends RouteComponentProps {
@@ -26,18 +27,26 @@ extends React.Component<AppProps, AppState> {
 		: HTMLCanvasElement
 
 	componentDidMount() {
-		if (this.canvas)
-			Drawer.init(this.canvas)
+		if (this.canvas) {
+			Drawer.init(this.canvas) 
+			// ;[...Array(Window.aspectRatio.w)].forEach((_, x) => {
+			// 	[...Array(Window.aspectRatio.h)].forEach((_, y) => {
+			// 		Drawer.addElement(new Chunk(x, y))
+			// 	})
+			// })
+		}
 
 		document.addEventListener("keydown", this.handleKeyDown)
+		document.addEventListener("click", this.handleClick)
+	}
 
-		setTimeout(() => {
-			[...Array(Window.aspectRatio.w)].forEach((_, x) => {
-				[...Array(Window.aspectRatio.h)].forEach((_, y) => {
-					Drawer.addElement(new Chunk(x, y))
-				})
-			})
-		}, 1200)
+	handleClick = (
+		event: MouseEvent,
+	) => {
+		const { clientX, clientY } = event
+		Drawer.addElement(
+			new SparkParticle(Drawer.getCursorCoords(clientX, clientY))
+		)
 	}
 
 	handleKeyDown = (

@@ -1,0 +1,1 @@
+export const PIXEL_DENSITY: number = 4300
