@@ -1,4 +1,4 @@
-import { computed, makeObservable, observable } from "mobx"
+import { action, computed, IObservableArray, makeObservable, observable } from "mobx"
 import { v4 as uuid } from "uuid"
 
 import { IDrawable } from "typings/canvas/Draw"
@@ -46,6 +46,11 @@ class DrawerStore {
 		return Window.workspaceSize.w / Window.aspectRatio.w
 	}
 
+	@computed
+	get debug_elementsCount(): number {
+		return this.elements.length
+	}
+
 	init = (
 		canvas: HTMLCanvasElement
 	) => {
@@ -66,12 +71,22 @@ class DrawerStore {
 		cancelAnimationFrame(this.frame)
 	}
 
+	@action
 	addElement = (
 		item: IDrawable
 	): string => {
 		const id = uuid()
 		this.elements.push({ id, item })
 		return id
+	}
+
+	@action
+	removeElement = (
+		id: string
+	) => {
+		const item = this.elements.find(el => el.id == id)
+		if (item)
+			(this.elements as IObservableArray).remove(item)
 	}
 
 	getCursorCoords = (

@@ -1,9 +1,9 @@
-export type Size2D = {
+export interface Size2D {
 	w: number
 	h: number
 }
 
-export type Coords2D = {
+export interface Coords2D {
 	x: number
 	y: number
 }

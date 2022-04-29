@@ -9,6 +9,7 @@ import Drawer from "stores/Drawer"
 import Chunk from "components/Canvas/Helpers/Chunk"
 import { unsafeRandomInt } from "utils/number"
 import SparkParticle from "components/Canvas/Particles/Spark"
+import DrawerDebug from "components/Debug/Drawer"
 
 export interface AppProps
 extends RouteComponentProps {
@@ -28,12 +29,7 @@ extends React.Component<AppProps, AppState> {
 
 	componentDidMount() {
 		if (this.canvas) {
-			Drawer.init(this.canvas) 
-			// ;[...Array(Window.aspectRatio.w)].forEach((_, x) => {
-			// 	[...Array(Window.aspectRatio.h)].forEach((_, y) => {
-			// 		Drawer.addElement(new Chunk(x, y))
-			// 	})
-			// })
+			Drawer.init(this.canvas)
 		}
 
 		document.addEventListener("keydown", this.handleKeyDown)
@@ -44,8 +40,16 @@ extends React.Component<AppProps, AppState> {
 		event: MouseEvent,
 	) => {
 		const { clientX, clientY } = event
-		Drawer.addElement(
-			new SparkParticle(Drawer.getCursorCoords(clientX, clientY))
+		const id = Drawer.addElement(
+			new SparkParticle(
+				Drawer.getCursorCoords(clientX, clientY),
+				{
+					vx: unsafeRandomInt(3, -3),
+					vy: unsafeRandomInt(4, 6),
+				},
+				undefined,
+				() => Drawer.removeElement(id)
+			)
 		)
 	}
 
@@ -71,6 +75,7 @@ extends React.Component<AppProps, AppState> {
 					height={height}
 				/>
 			</div>
+			<DrawerDebug />
 		</>
 	}
 }
